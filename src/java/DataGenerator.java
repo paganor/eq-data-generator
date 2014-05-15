@@ -59,6 +59,30 @@ class Enrollment {
 					  String exp_status, String exp_modify_dtmm, String exp_modify_utc,
 					  String tu_status, String tu_modify_dttm, String tu_modify_utc,
 					  String city, String state, String country, int postal_cd) {
-		enrollment_id = enrollment_id;
+
+		// basic setter methods
+		this.enrollment_id = enrollment_id;
+		this.enrollment_dtmm = enrollment_dtmm;
+		this.enrollment_utc = enrollment_utc;
+		this.efx_enrollee_data_src_id = efx_enrollee_data_src_id;
+		this.exp_enrollee_data_src_id = exp_enrollee_data_src_id;
+		this.tu_enrollee_data_src_id = tu_enrollee_data_src_id;
+		this.configuration_cd = configuration_cd;
+		this.configuration_desc = configuration_desc;
+		this.partner_name = partner_name;
+		this.tenant_name = tenant_name;
+		this.efx_status = efx_status;
+		this.efx_modify_dttm = efx_modify_dttm;
+		this.efx_modify_utc = efx_modify_utc;
+		this.exp_status = exp_status;
+		this.exp_modify_dtmm = exp_modify_dtmm;
+		this.exp_modify_utc = exp_modify_utc;
+		this.tu_status = tu_status;
+		this.tu_modify_dttm = tu_modify_dttm;
+		this.tu_modify_utc = tu_modify_utc;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.postal_cd = postal_cd;
 	};
 }
