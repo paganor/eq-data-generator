@@ -1,1 +1,3 @@
 javac -d ../../build/classes/ DataGenerator.java
+
+java DataGenerator
