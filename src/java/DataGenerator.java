@@ -9,7 +9,9 @@ public class DataGenerator {
     	// get parameters from user
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String fileLocation = null;
-		String fileType;
+		String fileType = null;
+		Enrollment e = new Enrollment();
+		Alert a = new Alert();
 		while (fileLocation == null) {
 			System.out.print("Please select a data source (enter an integer): " + "\n" + "\n" +
 							 "----- 1: cm_enrollment sample data" + "\n" + 
@@ -17,6 +19,7 @@ public class DataGenerator {
 							 "----- 3: cm_enrollment full data" + "\n" +
 							 "----- 4: cm_alert full data" + "\n" +
 							 "----- 5: sample text file" + "\n" + "\n");
+			System.out.print("Choice: ");
 
 			int choice = Integer.parseInt(br.readLine());
 			// select choice
@@ -47,16 +50,61 @@ public class DataGenerator {
 		// start reading lines from file
 		BufferedReader brl = new BufferedReader(new FileReader(fileLocation));
 		String line;
+		String tokens[];
 		// read the file until an empty line
 		// while ( (line = brl.readLine()) != null )
 		System.out.println("Now starting source file..." + "\n");
-
 		outerloop:
 		while (true) {
 			for (int i = 0; i < rate; i++) {
 				// if the line is not null deal with it
-				if ( (line = brl.readLine()) != null ) {
-					System.out.println(line);
+				if ((line = brl.readLine()) != null ) {
+					// parse line
+					tokens = line.split("[|]");
+
+					// determine type and create object
+					if (fileType == "alert") {
+						// create alert object
+						a.enrollment_id = Integer.parseInt(tokens[0]);
+						a.bureau = tokens[1];
+						a.tenant_name = tokens[2];
+						a.partner_name = tokens[3];
+						a.alert_dttm = tokens[4];
+						a.alert_utc = tokens[5];
+						a.alert_type = tokens[6];
+						// print it out (for now)
+						System.out.println(a.toString());
+					} else if (fileType == "enrollment") {
+						// create enrollment object
+						e.enrollment_id = Integer.parseInt(tokens[0]);
+						e.enrollment_dtmm = tokens[1];
+						e.enrollment_utc = tokens[2];
+						e.efx_enrollee_data_src_id = Integer.parseInt(tokens[3]);
+						e.exp_enrollee_data_src_id = Integer.parseInt(tokens[4]);
+						e.tu_enrollee_data_src_id = Integer.parseInt(tokens[5]);
+						e.configuration_cd = tokens[6];
+						e.configuration_desc = tokens[7];
+						e.partner_name = tokens[8];
+						e.tenant_name = tokens[9];
+						e.efx_status = tokens[10];
+						e.efx_modify_dttm = tokens[11];
+						e.efx_modify_utc = tokens[12];
+						e.exp_status = tokens[13];
+						e.exp_modify_dtmm = tokens[14];
+						e.efx_modify_utc = tokens[15];
+						e.tu_status = tokens[16];
+						e.tu_modify_dttm = tokens[17];
+						e.tu_modify_utc = tokens[18];
+						e.city = tokens[19];
+						e.state = tokens[20];
+						e.country = tokens[21];
+						e.postal_cd = Integer.parseInt(tokens[22]);
+						// print it out (for now)
+						System.out.println(e.toString());
+					} else {
+						System.out.println("It's not an alert or an enrollment");
+					}
+					
 				} else {
 					break outerloop;
 				}
@@ -102,6 +150,16 @@ class Alert {
 		this.alert_dttm = alert_dttm;
 		this.alert_utc = alert_utc;
 		this.alert_type = alert_type;
+	}
+
+	public String toString() {
+		return "\n" + "enrollment_id: " + enrollment_id + "\n" +
+		       "bureau: " + bureau + "\n" + 
+		       "tenant_name: " + tenant_name + "\n" + 
+		       "partner_name: " + partner_name + "\n" + 
+		       "alert_dttm: " + alert_dttm + "\n" +
+		       "alert_utc: " + alert_utc + "\n" +
+		       "alert_type: " + alert_type; 
 	}
 }
 
@@ -168,4 +226,30 @@ class Enrollment {
 		this.country = country;
 		this.postal_cd = postal_cd;
 	};
+
+	public String toString() {
+		return "\n" + "enrollment_id: " + enrollment_id + "\n" + 
+			   "enrollment_dtmm: " + enrollment_dtmm + "\n" + 
+			   "enrollment_utc: " + enrollment_utc + "\n" + 
+			   "efx_enrollee_data_src_id: " + efx_enrollee_data_src_id + "\n" + 
+			   "exp_enrollee_data_src_id: " + exp_enrollee_data_src_id + "\n" + 
+			   "tu_enrollee_data_src_id: " + tu_enrollee_data_src_id + "\n" + 
+			   "configuration_cd: " + configuration_cd + "\n" + 
+			   "configuration_desc: " + configuration_desc + "\n" + 
+			   "partner_name: " + partner_name + "\n" + 
+			   "tenant_name: " + tenant_name + "\n" + 
+			   "efx_status: " + efx_status + "\n" + 
+			   "efx_modify_dttm: " + efx_modify_dttm + "\n" + 
+			   "efx_modify_utc: " + efx_modify_utc + "\n" + 
+			   "exp_status: " + exp_status + "\n" + 
+			   "exp_modify_dtmm: " + exp_modify_dtmm + "\n" + 
+			   "exp_modify_utc: " + exp_modify_utc + "\n" + 
+			   "tu_status: " + tu_status + "\n" + 
+			   "tu_modify_dttm: " + tu_modify_dttm + "\n" + 
+			   "tu_modify_utc: " + tu_modify_utc + "\n" + 
+			   "city: " + city + "\n" + 
+			   "state: " + state + "\n" + 
+			   "country: " + country + "\n" + 
+			   "postal_cd: " + postal_cd + "\n";
+	}
 }
