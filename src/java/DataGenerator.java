@@ -9,6 +9,7 @@ public class DataGenerator {
     	// get parameters from user
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String fileLocation = null;
+		String fileType;
 		while (fileLocation == null) {
 			System.out.print("Please select a data source (enter an integer): " + "\n" + "\n" +
 							 "----- 1: cm_enrollment sample data" + "\n" + 
@@ -22,12 +23,15 @@ public class DataGenerator {
 			switch (choice) {
 				case 1:
 					fileLocation = "/Users/berto/Documents/project-files/eq-data-generator/test/data/cm_enrollment_sample.csv";
+					fileType = "enrollment";
 					break;
 				case 2:
 					fileLocation = "/Users/berto/Documents/project-files/eq-data-generator/test/data/cm_alert_sample.csv";
+					fileType = "alert";
 					break;
 				case 5:
 					fileLocation = "/Users/berto/Documents/project-files/eq-data-generator/test/data/sampleText.txt";
+					fileType = "text";
 					break;
 				default:
 					System.out.println("\n" + "That was not a valid choice... Please try again." + "\n");
@@ -40,15 +44,25 @@ public class DataGenerator {
 		// spit it back out for testing purposes..
 		System.out.println("\n" + "Full location is: " + fileLocation + ". Rate is " + rate + " records per minute." + "\n");
 
-		System.out.println("Now reading source file...");
-
 		// start reading lines from file
 		BufferedReader brl = new BufferedReader(new FileReader(fileLocation));
 		String line;
-		while ( (line = brl.readLine()) != null ) {
-			// process the line
-			System.out.println(line);
-		} 
+		// read the file until an empty line
+		// while ( (line = brl.readLine()) != null )
+		System.out.println("Now starting source file..." + "\n");
+
+		outerloop:
+		while (true) {
+			for (int i = 0; i < rate; i++) {
+				if ( (line = brl.readLine()) != null ) {
+					System.out.println(line);
+				} else {
+					break outerloop;
+				}
+			}
+			System.out.println("\n" + "Now finished with group" + "\n");
+		}
+		System.out.println("\n" + "Now finished with all records");
     }
 }
 
