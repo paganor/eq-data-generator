@@ -8,19 +8,37 @@ public class DataGenerator {
     public static void main (String[] args) throws IOException {
     	// get parameters from user
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String fileLocation = null;
+		while (fileLocation == null) {
+			System.out.print("Please select a data source (enter an integer): " + "\n" + "\n" +
+							 "----- 1: cm_enrollment sample data" + "\n" + 
+							 "----- 2: cm_alert sample data" + "\n" +
+							 "----- 3: cm_enrollment full data" + "\n" +
+							 "----- 4: cm_alert full data" + "\n" +
+							 "----- 5: sample text file" + "\n" + "\n");
 
-		System.out.print("Enter full location of source file: ");
-		String fileLocation = br.readLine();
+			int choice = Integer.parseInt(br.readLine());
+			// select choice
+			switch (choice) {
+				case 1:
+					fileLocation = "/Users/berto/Documents/project-files/eq-data-generator/test/data/cm_enrollment_sample.csv";
+					break;
+				case 2:
+					fileLocation = "/Users/berto/Documents/project-files/eq-data-generator/test/data/cm_alert_sample.csv";
+					break;
+				case 5:
+					fileLocation = "/Users/berto/Documents/project-files/eq-data-generator/test/data/sampleText.txt";
+					break;
+				default:
+					System.out.println("\n" + "That was not a valid choice... Please try again." + "\n");
+			}
+		}
 
-		System.out.print("How many records per minute? ");
+		System.out.print("\n" + "How many records per minute? ");
 		int rate = Integer.parseInt(br.readLine());
 
 		// spit it back out for testing purposes..
-		System.out.println("Full location is: " + fileLocation + ". Rate is " + rate + " records per minute.");
-
-		Enrollment e = new Enrollment();
-
-		System.out.println("Enrollment id is.. " + e.enrollment_id);
+		System.out.println("\n" + "Full location is: " + fileLocation + ". Rate is " + rate + " records per minute." + "\n");
 
 		System.out.println("Now reading source file...");
 
@@ -30,7 +48,6 @@ public class DataGenerator {
 		while ( (line = brl.readLine()) != null ) {
 			// process the line
 			System.out.println(line);
-			System.out.println("line has been read...");
 		} 
     }
 }
