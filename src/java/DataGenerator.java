@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.FileReader;
 
 public class DataGenerator {
 
@@ -20,6 +21,17 @@ public class DataGenerator {
 		Enrollment e = new Enrollment();
 
 		System.out.println("Enrollment id is.. " + e.enrollment_id);
+
+		System.out.println("Now reading source file...");
+
+		// start reading lines from file
+		BufferedReader brl = new BufferedReader(new FileReader(fileLocation));
+		String line;
+		while ( (line = brl.readLine()) != null ) {
+			// process the line
+			System.out.println(line);
+			System.out.println("line has been read...");
+		} 
     }
 }
 
