@@ -61,8 +61,8 @@ public class DataGenerator {
 					break outerloop;
 				}
 			}
-			// wait for one minute..
 			System.out.println("\n");
+			// wait for one minute..
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException ie) {
