@@ -73,6 +73,39 @@ public class DataGenerator {
     }
 }
 
+// Alert Class
+class Alert {
+	// all fields
+	int enrollment_id;
+	String bureau;
+	String tenant_name;
+	String partner_name;
+	String alert_dttm;
+	String alert_utc;
+	String alert_type;
+
+	// empty constructor
+	public Alert() { };
+	// basic constructor
+	public Alert(int enrollment_id,
+				 String bureau,
+				 String tenant_name,
+				 String partner_name,
+				 String alert_dttm,
+				 String alert_utc,
+				 String alert_type) {
+		// basic assignment
+		this.enrollment_id = enrollment_id;
+		this.bureau = bureau;
+		this.tenant_name = tenant_name;
+		this.partner_name = partner_name;
+		this.alert_dttm = alert_dttm;
+		this.alert_utc = alert_utc;
+		this.alert_type = alert_type;
+	}
+}
+
+// Enrollment Class
 class Enrollment {
 	// all fields
 	int enrollment_id; 
@@ -100,7 +133,7 @@ class Enrollment {
   	int postal_cd;
 
   	// empty constructor
-  	public Enrollment() { enrollment_id = 0; };
+  	public Enrollment() { };
 	// basic constructor
 	public Enrollment(int enrollment_id, String enrollment_dtmm, String enrollment_utc,
 					  int efx_enrollee_data_src_id, int exp_enrollee_data_src_id, int tu_enrollee_data_src_id,
