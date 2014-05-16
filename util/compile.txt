@@ -1,3 +1,5 @@
 javac -d ../../build/classes/ DataGenerator.java
 
 java DataGenerator
+
+/Users/berto/Documents/project-files/eq-data-generator/test/data/cm_enrollment_sample.csv
