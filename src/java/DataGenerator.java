@@ -54,13 +54,20 @@ public class DataGenerator {
 		outerloop:
 		while (true) {
 			for (int i = 0; i < rate; i++) {
+				// if the line is not null deal with it
 				if ( (line = brl.readLine()) != null ) {
 					System.out.println(line);
 				} else {
 					break outerloop;
 				}
 			}
-			System.out.println("\n" + "Now finished with group" + "\n");
+			// wait for one minute..
+			System.out.println("\n");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException ie) {
+				System.out.println("Something goofy happened..");
+			}
 		}
 		System.out.println("\n" + "Now finished with all records");
     }
