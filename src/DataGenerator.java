@@ -51,12 +51,20 @@ public class DataGenerator {
 		BufferedReader brl = new BufferedReader(new FileReader(fileLocation));
 		String line;
 		String tokens[];
+		Event e = new Event();
 
 		outerloop:
 		while(true) {
 			for(int i = 0; i < rows; i++) {
 				if ((line = brl.readLine()) != null ) {
-					System.out.println(line);
+					// split csv
+					tokens = line.split("[|]");
+					// asign to event object
+					e.enrollment_id = Integer.parseInt(tokens[0]);
+					e.bureau = tokens[1];
+					e.status = tokens[2];
+					// publish event
+					e.publish();
 				} else {
 					break outerloop;
 				}
@@ -66,26 +74,30 @@ public class DataGenerator {
 			try {
 				Thread.sleep(interval * 1000);
 			} catch (InterruptedException ie) {
-				System.out.println("Something goofy happened..");
+				System.out.println("Something goofy happened during sleep interval.");
 			}
 		}
 	}
+}
 
-	// event class
-	class Event {
-		int enrollment_id;
-		String bureau, status;
+// event class
+class Event {
+	int enrollment_id;
+	String bureau, status;
 
-		// constructors
-		public Event() { };
-		public Event(int enrollment_id, String bureau, String status) {
-			this.enrollment_id = enrollment_id;
-			this.bureau = bureau;
-			this.status = status;
-		}
+	// constructors
+	public Event() { };
+	public Event(int enrollment_id, String bureau, String status) {
+		this.enrollment_id = enrollment_id;
+		this.bureau = bureau;
+		this.status = status;
+	}
 
-		public void publish() {
-			System.out.println("Publishing event via REST");
-		}
+	public String toString() {
+		return "enrollment_id: " + enrollment_id + " | " + "bureau: " + bureau + " | " + "status: " + status;
+	}
+
+	public void publish() {
+		System.out.println(this.toString());
 	}
 }
