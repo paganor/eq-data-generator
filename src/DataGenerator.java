@@ -1,6 +1,51 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.FileReader;
+
 public class DataGenerator {
-	public static void main(String args[]) {
-		System.out.println("Hello, world!");
+	public static void main(String args[]) throws IOException {
+		// present user with data file options
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String fileLocation = null;
+
+		// get response
+		while(fileLocation == null) {
+			System.out.print("Please select a data source (enter an integer): " + "\n" + "\n" +
+							 "----- 1: scenario 1 data file" + "\n" + 
+							 "----- 2: scenario 2 data file" + "\n" +
+							 "----- 3: scenario 3 data file" + "\n" +
+							 "----- 4: sample data file" + "\n" +
+							 "----- 5: sample text file" + "\n" + "\n");
+			System.out.print("Choice: ");
+
+			int choice = Integer.parseInt(br.readLine());
+			
+			switch (choice) {
+				case 1:
+					fileLocation = "/Users/berto/Documents/project-files/eq-data-generator/test/ScenarioFile1.csv";
+					break;
+				case 2:
+					fileLocation = "/Users/berto/Documents/project-files/eq-data-generator/test/ScenarioFile2.csv";
+					break;
+				case 3:
+					fileLocation = "/Users/berto/Documents/project-files/eq-data-generator/test/ScenarioFile3.csv";
+					break;
+				case 4:
+					fileLocation = "/Users/berto/Documents/project-files/eq-data-generator/test/SampleData.csv";
+					break;
+				case 5:
+					fileLocation = "/Users/berto/Documents/project-files/eq-data-generator/test/SampleText.txt";
+					break;
+				default:
+					System.out.println("\n" + "That was not a valid choice... Please try again." + "\n");
+			}
+		}
+		// get rows per fetch
+		System.out.print("\n" + "Enter number of rows per interval: ");
+		int rows = Integer.parseInt(br.readLine());
+		System.out.print("Enter number of seconds between intervals: ");
+		int interval = Integer.parseInt(br.readLine());
 	}
 
 	// event class
