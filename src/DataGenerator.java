@@ -46,6 +46,29 @@ public class DataGenerator {
 		int rows = Integer.parseInt(br.readLine());
 		System.out.print("Enter number of seconds between intervals: ");
 		int interval = Integer.parseInt(br.readLine());
+
+		// read and parse file
+		BufferedReader brl = new BufferedReader(new FileReader(fileLocation));
+		String line;
+		String tokens[];
+
+		outerloop:
+		while(true) {
+			for(int i = 0; i < rows; i++) {
+				if ((line = brl.readLine()) != null ) {
+					System.out.println(line);
+				} else {
+					break outerloop;
+				}
+			}
+			System.out.println("\n" + "now waiting...");
+			// sleep for wait time
+			try {
+				Thread.sleep(interval * 1000);
+			} catch (InterruptedException ie) {
+				System.out.println("Something goofy happened..");
+			}
+		}
 	}
 
 	// event class
