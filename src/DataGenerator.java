@@ -63,8 +63,8 @@ public class DataGenerator {
 					e.enrollment_id = Integer.parseInt(tokens[0]);
 					e.bureau = tokens[1];
 					e.status = tokens[2];
-					// publish event
-					e.publish();
+					// send event via REST
+					e.send();
 				} else {
 					break outerloop;
 				}
@@ -76,7 +76,8 @@ public class DataGenerator {
 			} catch (InterruptedException ie) {
 				System.out.println("Something goofy happened during sleep interval.");
 			}
-		}
+		} // end of while loop
+		System.out.println("Data generator complete.");
 	}
 }
 
@@ -97,7 +98,8 @@ class Event {
 		return "enrollment_id: " + enrollment_id + " | " + "bureau: " + bureau + " | " + "status: " + status;
 	}
 
-	public void publish() {
+	public void send() {
+		// put logic to publish to REST service here
 		System.out.println(this.toString());
 	}
 }
