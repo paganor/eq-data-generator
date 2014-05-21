@@ -146,7 +146,7 @@ class Event {
 				throw new RuntimeException("Failed : HTTP error code : "+ response.getStatus());
 			}
 	 
-			System.out.println("Output from Server .... \n");
+			System.out.println("Output from Server ... \n");
 			String output = response.getEntity(String.class);
 			System.out.println(output);
 		} catch (Exception e) {
