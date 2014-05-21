@@ -2,13 +2,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.FileReader;
+<<<<<<< HEAD
 // random
 import java.util.Random;
 /* 
+=======
+// Jersey libraries
+>>>>>>> rest
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-*/
 
 public class DataGenerator {
 	public static void main(String args[]) throws IOException {
@@ -131,35 +134,23 @@ class Event {
 	public void send() {
 		// put logic to publish to REST service here
 		System.out.println(this.toJsonString());
-
-		/*
 		try {
- 
-		Client client = Client.create();
- 
-		WebResource webResource = client
-		   .resource("http://localhost:8080/RESTfulExample/rest/json/metallica/post");
- 
-		String input = "{\"singer\":\"Metallica\",\"title\":\"Fade To Black\"}";
- 
-		ClientResponse response = webResource.type("application/json")
-		   .post(ClientResponse.class, input);
- 
-		if (response.getStatus() != 201) {
-			throw new RuntimeException("Failed : HTTP error code : "
-			     + response.getStatus());
+	 		Client client = Client.create();
+	 		WebResource webResource = client.resource("http://localhost:8080/RESTfulExample/rest/json/metallica/post");
+	 
+			String input = this.toJsonString();
+	 
+			ClientResponse response = webResource.type("application/json").post(ClientResponse.class, input);
+	 
+			if (response.getStatus() != 201) {
+				throw new RuntimeException("Failed : HTTP error code : "+ response.getStatus());
+			}
+	 
+			System.out.println("Output from Server .... \n");
+			String output = response.getEntity(String.class);
+			System.out.println(output);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
- 
-		System.out.println("Output from Server .... \n");
-		String output = response.getEntity(String.class);
-		System.out.println(output);
- 
-	  } catch (Exception e) {
- 
-		e.printStackTrace();
- 
-	  }
-	}
-		*/
 	}
 }
