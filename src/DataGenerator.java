@@ -66,8 +66,8 @@ public class DataGenerator {
 					tokens = line.split("[|]");
 					// asign to event object
 					e.enrollment_id = tokens[0];
-					e.bureau = tokens[2];
-					e.status = tokens[1];
+					e.bureau = tokens[1];
+					e.status = tokens[2];
 					// send event via REST
 					e.send();
 				} else {
