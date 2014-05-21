@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.FileReader;
+// random
+import java.util.Random;
 // Jersey libraries
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -59,7 +61,10 @@ public class DataGenerator {
 
 		outerloop:
 		while(true) {
-			for(int i = 0; i < rows; i++) {
+			// calculate random size for each batch
+			int size = randomSize(rows);
+			System.out.println("Now printing " + size + " rows. \n");
+			for(int i = 0; i < size; i++) {
 				if ((line = brl.readLine()) != null ) {
 					// split csv
 					tokens = line.split("[|]");
@@ -73,15 +78,32 @@ public class DataGenerator {
 					break outerloop;
 				}
 			}
-			System.out.println("\n" + "now waiting..." + "\n");
+			// calculate wait time
+			int wait = randomWait(interval);
+			System.out.println("\n" + "now waiting for " + wait/1000 + " seconds... \n");
 			// sleep for wait time
 			try {
-				Thread.sleep(interval * 1000);
+				Thread.sleep(wait);
 			} catch (InterruptedException ie) {
 				System.out.println("Something goofy happened during sleep interval.");
 			}
 		} // end of while loop
 		System.out.println("Data generator complete.");
+	}
+	static int randomSize(int n) {
+		// lowest number
+		int low = 1;
+		Random r = new Random();
+
+		return r.nextInt(n - low) + low;
+	}
+
+	static int randomWait(int n) {
+		// lowest wait
+		int low = 1;
+		Random r = new Random();
+
+		return (r.nextInt(n - low) + low) * 1000;
 	}
 }
 
