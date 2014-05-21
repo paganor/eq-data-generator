@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.FileReader;
+// random
+import java.util.Random;
 /* 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -47,9 +49,9 @@ public class DataGenerator {
 			}
 		}
 		// get rows per fetch
-		System.out.print("\n" + "Enter number of rows per interval: ");
+		System.out.print("\n" + "Enter maximum number of rows per interval: ");
 		int rows = Integer.parseInt(br.readLine());
-		System.out.print("Enter number of seconds between intervals: ");
+		System.out.print("Enter maximum number of seconds between intervals: ");
 		int interval = Integer.parseInt(br.readLine());
 
 		// read and parse file
@@ -60,7 +62,10 @@ public class DataGenerator {
 
 		outerloop:
 		while(true) {
-			for(int i = 0; i < rows; i++) {
+			// recalculate number of rows on each iteration
+			int limit = randomSize(rows);
+			System.out.println("Now printing " + limit + " rows. \n");
+			for(int i = 0; i < limit; i++) {
 				if ((line = brl.readLine()) != null ) {
 					// split csv
 					tokens = line.split("[|]");
@@ -74,15 +79,35 @@ public class DataGenerator {
 					break outerloop;
 				}
 			}
-			System.out.println("\n" + "now waiting..." + "\n");
+			// calculate random wait time
+			int wait = randomWait(interval);
+			System.out.println("\n" + "now waiting for " + wait/1000 + " seconds... \n");
 			// sleep for wait time
 			try {
-				Thread.sleep(interval * 1000);
+				Thread.sleep(wait);
 			} catch (InterruptedException ie) {
 				System.out.println("Something goofy happened during sleep interval.");
 			}
 		} // end of while loop
-		System.out.println("Data generator complete.");
+		System.out.println("Out of rows in source file. Data generator complete.");
+	}
+
+	// determine size
+	static int randomSize(int n) {
+		// lowest size
+		int low = 1;
+		Random r = new Random();
+
+		return r.nextInt(n - low) + low;
+	}
+
+	// determine wait between grabs
+	static int randomWait(int n) {
+		// lowest wait time
+		int low = 1;
+		Random r = new Random();
+
+		return (r.nextInt(n - low) + low) * 1000;
 	}
 }
 
