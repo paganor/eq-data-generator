@@ -2,6 +2,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.FileReader;
+/* 
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+*/
 
 public class DataGenerator {
 	public static void main(String args[]) throws IOException {
@@ -60,7 +65,7 @@ public class DataGenerator {
 					// split csv
 					tokens = line.split("[|]");
 					// asign to event object
-					e.enrollment_id = Integer.parseInt(tokens[0]);
+					e.enrollment_id = tokens[0];
 					e.bureau = tokens[2];
 					e.status = tokens[1];
 					// send event via REST
@@ -83,23 +88,53 @@ public class DataGenerator {
 
 // event class
 class Event {
-	int enrollment_id;
-	String bureau, status;
+	String enrollment_id, bureau, status;
 
 	// constructors
 	public Event() { };
-	public Event(int enrollment_id, String bureau, String status) {
+	public Event(String enrollment_id, String bureau, String status) {
 		this.enrollment_id = enrollment_id;
 		this.bureau = bureau;
 		this.status = status;
 	}
 
-	public String toString() {
-		return "enrollment_id: " + enrollment_id + " | " + "bureau: " + bureau + " | " + "status: " + status;
+	public String toJsonString() {
+		// format should be {"EnrollmentID":"12341234", "Bureau":"Equifax", "Status":"Active"}
+		return "{\"EnrollmentID\":\""+enrollment_id+"\", \"Bureau\":\""+bureau+"\", \"Status\":\""+status+"\"}";
 	}
 
 	public void send() {
 		// put logic to publish to REST service here
-		System.out.println(this.toString());
+		System.out.println(this.toJsonString());
+
+		/*
+		try {
+ 
+		Client client = Client.create();
+ 
+		WebResource webResource = client
+		   .resource("http://localhost:8080/RESTfulExample/rest/json/metallica/post");
+ 
+		String input = "{\"singer\":\"Metallica\",\"title\":\"Fade To Black\"}";
+ 
+		ClientResponse response = webResource.type("application/json")
+		   .post(ClientResponse.class, input);
+ 
+		if (response.getStatus() != 201) {
+			throw new RuntimeException("Failed : HTTP error code : "
+			     + response.getStatus());
+		}
+ 
+		System.out.println("Output from Server .... \n");
+		String output = response.getEntity(String.class);
+		System.out.println(output);
+ 
+	  } catch (Exception e) {
+ 
+		e.printStackTrace();
+ 
+	  }
+	}
+		*/
 	}
 }
