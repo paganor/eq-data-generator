@@ -61,15 +61,15 @@ public class DataGenerator {
 					tokens = line.split("[|]");
 					// asign to event object
 					e.enrollment_id = Integer.parseInt(tokens[0]);
-					e.bureau = tokens[1];
-					e.status = tokens[2];
+					e.bureau = tokens[2];
+					e.status = tokens[1];
 					// send event via REST
 					e.send();
 				} else {
 					break outerloop;
 				}
 			}
-			System.out.println("\n" + "now waiting...");
+			System.out.println("\n" + "now waiting..." + "\n");
 			// sleep for wait time
 			try {
 				Thread.sleep(interval * 1000);
