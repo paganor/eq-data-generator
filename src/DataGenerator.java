@@ -15,20 +15,21 @@ import org.json.simple.JSONValue;
 
 public class DataGenerator {
 	public static void main(String args[]) throws IOException {
-		// present user with data file options
+
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String fileLocation = null;
 
-		// get response
+		// present user with data file options
 		while(fileLocation == null) {
 			System.out.print("Please select a data source (enter an integer): " + "\n" + "\n" +
 							 "----- 1: scenario 1 data file" + "\n" + 
 							 "----- 2: scenario 2 data file" + "\n" +
 							 "----- 3: scenario 3 data file" + "\n" +
 							 "----- 4: sample data file" + "\n" +
-							 "----- 5: sample text file" + "\n" + "\n");
+							 "----- 5: single entry data file" + "\n" + "\n");
 			System.out.print("Choice: ");
 
+			// get response
 			int choice = Integer.parseInt(br.readLine());
 			
 			// if moved to a different machine, these fileLocations will have to be changed to new absolute paths
@@ -97,6 +98,8 @@ public class DataGenerator {
 		System.out.println("Out of rows... data generator complete.");
 	}
 	static int randomSize(int n) {
+		// if 1, return that
+		if(n == 1) {return 1;}
 		// lowest number
 		int low = 1;
 		Random r = new Random();
@@ -105,6 +108,8 @@ public class DataGenerator {
 	}
 
 	static int randomWait(int n) {
+		// if 1, return that
+		if(n == 1) {return 1000;}
 		// lowest wait
 		int low = 1;
 		Random r = new Random();
