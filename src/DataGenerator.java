@@ -94,7 +94,7 @@ public class DataGenerator {
 				System.out.println("Something goofy happened during sleep interval.");
 			}
 		} // end of while loop
-		System.out.println("Data generator complete.");
+		System.out.println("Out of rows... data generator complete.");
 	}
 	static int randomSize(int n) {
 		// lowest number
