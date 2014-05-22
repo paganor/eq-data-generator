@@ -1,4 +1,9 @@
 javac -cp json-simple-1.1.1.jar -d ../build/ DataGenerator.java
 
+javac -classpath ./jersey-bundle-1.18.jar -d ../build/ DataGenerator.java 
+
 // for troubleshooting
 javac -cp json-simple-1.1.1.jar -Xlint:unchecked -d ../build/ DataGenerator.java
+
+// to run it
+java -classpath '.:../src/*' DataGenerator

@@ -8,6 +8,10 @@ import java.util.Random;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
+// JSON libraries
+import java.util.LinkedHashMap;
+import java.util.Map;
+import org.json.simple.JSONValue;
 
 public class DataGenerator {
 	public static void main(String args[]) throws IOException {
@@ -48,9 +52,9 @@ public class DataGenerator {
 			}
 		}
 		// get rows per fetch
-		System.out.print("\n" + "Enter number of rows per interval: ");
+		System.out.print("\n" + "Enter maximum number of rows per interval: ");
 		int rows = Integer.parseInt(br.readLine());
-		System.out.print("Enter number of seconds between intervals: ");
+		System.out.print("Enter maximum number of seconds between intervals: ");
 		int interval = Integer.parseInt(br.readLine());
 
 		// read and parse file
@@ -70,8 +74,8 @@ public class DataGenerator {
 					tokens = line.split("[|]");
 					// asign to event object
 					e.enrollment_id = tokens[0];
-					e.bureau = tokens[2];
-					e.status = tokens[1];
+					e.bureau = tokens[1];
+					e.status = tokens[2];
 					// send event via REST
 					e.send();
 				} else {
@@ -120,26 +124,38 @@ class Event {
 	}
 
 	public String toJsonString() {
-		// format should be {"EnrollmentID":"12341234", "Bureau":"Equifax", "Status":"Active"}
-		return "{\"EnrollmentID\":\""+enrollment_id+"\", \"Bureau\":\""+bureau+"\", \"Status\":\""+status+"\"}";
+		/*
+		format should be {"EnrollmentID":"12341234", "Bureau":"Equifax", "Status":"Active"}
+
+		Basic documentation found at https://code.google.com/p/json-simple/wiki/EncodingExamples
+		*/
+		Map<String, String> obj = new LinkedHashMap<String, String>();
+
+  		obj.put("enrollment", enrollment_id);
+  		obj.put("bureau", bureau);
+  		obj.put("status", status);
+
+  		return JSONValue.toJSONString(obj);
 	}
 
 	public void send() {
-		// put logic to publish to REST service here
-		System.out.println(this.toJsonString());
+		/*
+		Basic documentation found at http://www.mkyong.com/webservices/jax-rs/restful-java-client-with-jersey-client/
+		*/
 		try {
 	 		Client client = Client.create();
-	 		WebResource webResource = client.resource("http://localhost:8080/RESTfulExample/rest/json/metallica/post");
+	 		WebResource webResource = client.resource("http://eqdev.bigcompass.com:8080/EQDemo/rest/json/event");
 	 
 			String input = this.toJsonString();
-	 
+
+	 		System.out.print("Now attempting to post " + input + " ... ");
 			ClientResponse response = webResource.type("application/json").post(ClientResponse.class, input);
 	 
 			if (response.getStatus() != 201) {
 				throw new RuntimeException("Failed : HTTP error code : "+ response.getStatus());
 			}
 	 
-			System.out.println("Output from Server ... \n");
+			System.out.print("Output from Server ... ");
 			String output = response.getEntity(String.class);
 			System.out.println(output);
 		} catch (Exception e) {
