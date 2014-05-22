@@ -22,8 +22,8 @@ public class DataGenerator {
 		// present user with data file options
 		while(fileLocation == null) {
 			System.out.print("Please select a data source (enter an integer): " + "\n" + "\n" +
-							 "----- 1: scenario 1 data file" + "\n" + 
-							 "----- 2: scenario 2 data file" + "\n" +
+							 "----- 1: Enrollment Sample Data File" + "\n" + 
+							 "----- 2: Alert Sample Data File" + "\n" +
 							 "----- 3: scenario 3 data file" + "\n" +
 							 "----- 4: sample data file" + "\n" +
 							 "----- 5: single entry data file" + "\n" + "\n");
@@ -35,10 +35,10 @@ public class DataGenerator {
 			// if moved to a different machine, these fileLocations will have to be changed to new absolute paths
 			switch (choice) {
 				case 1:
-					fileLocation = "/Users/berto/Documents/project-files/eq-data-generator/test/ScenarioFile1.csv";
+					fileLocation = "/Users/berto/Documents/project-files/eq-data-generator/test/EnrollmentData.csv";
 					break;
 				case 2:
-					fileLocation = "/Users/berto/Documents/project-files/eq-data-generator/test/ScenarioFile2.csv";
+					fileLocation = "/Users/berto/Documents/project-files/eq-data-generator/test/AlertData.csv";
 					break;
 				case 3:
 					fileLocation = "/Users/berto/Documents/project-files/eq-data-generator/test/ScenarioFile3.csv";
