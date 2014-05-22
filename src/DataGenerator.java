@@ -31,6 +31,7 @@ public class DataGenerator {
 
 			int choice = Integer.parseInt(br.readLine());
 			
+			// if moved to a different machine, these fileLocations will have to be changed to new absolute paths
 			switch (choice) {
 				case 1:
 					fileLocation = "/Users/berto/Documents/project-files/eq-data-generator/test/ScenarioFile1.csv";
@@ -51,6 +52,7 @@ public class DataGenerator {
 					System.out.println("\n" + "That was not a valid choice... Please try again." + "\n");
 			}
 		}
+
 		// get rows per fetch
 		System.out.print("\n" + "Enter maximum number of rows per interval: ");
 		int rows = Integer.parseInt(br.readLine());
@@ -143,11 +145,14 @@ class Event {
 		Basic documentation found at http://www.mkyong.com/webservices/jax-rs/restful-java-client-with-jersey-client/
 		*/
 		try {
+			// create client
 	 		Client client = Client.create();
 	 		WebResource webResource = client.resource("http://eqdev.bigcompass.com:8080/EQDemo/rest/json/event");
-	 
+	 		
+	 		// generate json string
 			String input = this.toJsonString();
 
+			// post this thing
 	 		System.out.print("Now attempting to post " + input + " ... ");
 			ClientResponse response = webResource.type("application/json").post(ClientResponse.class, input);
 	 
