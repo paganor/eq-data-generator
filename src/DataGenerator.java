@@ -97,6 +97,7 @@ public class DataGenerator {
 		} // end of while loop
 		System.out.println("Out of rows... data generator complete.");
 	}
+	
 	static int randomSize(int n) {
 		// if 1, return that
 		if(n == 1) {return 1;}
